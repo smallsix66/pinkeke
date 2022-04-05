@@ -6,7 +6,7 @@ import axios from 'axios'
 import store from '@/store'
 import router from '@/router'
 // 导出基准地址，原因：其他地方不是通过axios发请求的地方用上基准地址
-export const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net/'
+export const baseURL = 'http://localhost:3000/'
 const instance = axios.create({
   // axios 的一些配置，baseURL  timeout
   baseURL,
@@ -17,12 +17,12 @@ instance.interceptors.request.use(config => {
   // 进行请求配置的修改
   // 如果本地又token就在头部携带
   // 1. 获取用户信息对象
-  const { profile } = store.state.user
-  // 2. 判断是否有token
-  if (profile.token) {
-    // 3. 设置token
-    config.headers.Authorization = `Bearer ${profile.token}`
-  }
+  // const { profile } = store.state.user
+  // // 2. 判断是否有token
+  // if (profile.token) {
+  //   // 3. 设置token
+  //   config.headers.Authorization = `Bearer ${profile.token}`
+  // }
   return config
 }, err => {
   return Promise.reject(err)

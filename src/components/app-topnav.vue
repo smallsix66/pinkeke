@@ -39,7 +39,6 @@ export default {
         // height: 53px;
         // line-height: 53px;
         padding: 0 15px;
-        line-height: 100%;
         color: #cdcdcd;
         line-height: 1;
         display: inline-block;
