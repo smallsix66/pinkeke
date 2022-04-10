@@ -31,14 +31,15 @@ export default {
   }
   .logo {
     width: 200px;
+    height: 80px;
     a {
       display: block;
       height: 132px;
       width: 100%;
       text-indent: -9999px;
-      background: url("@/assets/images/reward.png") no-repeat center 18px /
-        contain;
     }
+    background: url("@/assets/images/reward.png") no-repeat center 18px /
+      contain;
   }
   .cart {
     width: 50px;

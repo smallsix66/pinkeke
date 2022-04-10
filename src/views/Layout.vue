@@ -15,9 +15,14 @@
 import AppTopNav from "@/components/app-topnav";
 import AppHeader from "@/components/app-header";
 import AppHeaderSticky from "@/components/app-header-sticky"
+import {useStore} from 'vuex'
 export default {
   name: "LayoutPage",
   components: { AppTopNav, AppHeader, AppHeaderSticky },
+  setup(){
+    const store = useStore();
+    store.dispatch('category/getList')
+  }
 };
 </script>
 

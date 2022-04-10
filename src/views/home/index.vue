@@ -4,18 +4,17 @@
       <!-- banner -->
       <HomeBanner class="banner" />
       <!-- 课程列表 -->
-      <HomeProducts />
-      <p v-for="i in 100" :key="i" style="fontsize: 36px">1</p>
+      <AppProducts categoryId="1001"/>
     </div>
   </div>
 </template>
 
 <script>
 import HomeBanner from "./components/home-banner.vue";
-import HomeProducts from "./components/home-products.vue";
+import AppProducts from "@/components/app-products.vue";
 export default {
   name: "HomePage",
-  components: { HomeBanner, HomeProducts },
+  components: { HomeBanner, AppProducts },
 };
 </script>
 
@@ -25,8 +24,6 @@ export default {
   .container {
     width: 100%;
     height: 100%;
-    .banner {
-    }
   }
 }
 </style>

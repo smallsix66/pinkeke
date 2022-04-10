@@ -1,31 +1,26 @@
 <template>
   <ul class="navs">
     <li class="home"><RouterLink to="/">首页</RouterLink></li>
-    <li>
-      <a href="#">美食</a>
-      <div class="layer">
-        <ul>
-          <li v-for="i in 10" :key="i">
-            <img src="@/assets/images/reward.png" alt="">
-            <p>果干</p>
-          </li>
-        </ul>
-      </div>
+    <li v-for="(cate,i) in list" :key="i">
+      <RouterLink :to="`/category/${cate.cate_id}`">{{cate.cate_name}}</RouterLink>
     </li>
-    <li><a href="#">餐厨</a></li>
-    <li><a href="#">艺术</a></li>
-    <li><a href="#">电器</a></li>
-    <li><a href="#">居家</a></li>
-    <li><a href="#">洗护</a></li>
-    <li><a href="#">孕婴</a></li>
-    <li><a href="#">服装</a></li>
-    <li><a href="#">杂货</a></li>
   </ul>
 </template>
 
 <script>
+import { computed } from '@vue/runtime-core';
+import {useStore} from 'vuex'
 export default {
   name: "AppHeaderNav",
+  setup(){
+    const store = useStore()
+    const list = computed(()=>{
+      return store.state.category.list
+    })
+      console.log("AppHeaderNav-list",list);
+
+    return {list}
+  }
 };
 </script>
 
@@ -37,9 +32,8 @@ export default {
   padding-left: 40px;
   position: relative;
   z-index: 998;
-  > li {
+  >li {
     margin-right: 40px;
-    width: 38px;
     text-align: center;
     > a {
       font-size: 16px;
@@ -52,12 +46,13 @@ export default {
         color: @pkkColor;
         border-bottom: 1px solid @pkkColor;
       }
-      > .layer{
-        height: 132px;
-        opacity: 1;
-      }
+      // > .layer{
+      //   height: 132px;
+      //   opacity: 1;
+      // }
     }
   }
+  /*// 二级类目
   .layer{
     width: 1240px;
     background-color: #fff;
@@ -93,5 +88,6 @@ export default {
       }
     }
   }
+  */
 }
 </style>
