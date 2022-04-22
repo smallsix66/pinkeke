@@ -39,7 +39,7 @@ export default {
     },
     categoryId:{
       type:Number,
-      default:1003
+      default:1001
     }
   },
   setup(props) {
@@ -62,7 +62,7 @@ export default {
           reqParams.page,
           reqParams.pageSize
         );
-        // console.log("data___________", data);
+        // console.log("data.list[0]___________", data.list[0]);
         //服务器返回两条结果，由数组包裹，具体log一下查看返回的结果
         //第一条结果在data.list[0]
         //第二条结果在data.list[1]，sql中count(0)取了别名total，所以结果总数在data.list[1][0].total

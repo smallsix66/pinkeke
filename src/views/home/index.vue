@@ -3,8 +3,8 @@
     <div class="container">
       <!-- banner -->
       <HomeBanner class="banner" />
-      <!-- 课程列表 -->
-      <AppProducts categoryId="1001"/>
+      <!-- 商品列表 -->
+      <AppProducts/>
     </div>
   </div>
 </template>

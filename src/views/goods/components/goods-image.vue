@@ -2,15 +2,15 @@
   <div class="goods-iamge">
     <div
       class="large"
-      :style="[{ backgroundImage: `url(${subImages[currIndex]})` },bgPosition]"
+      :style="[{ backgroundImage: `url(${mainImages[currIndex]})` },bgPosition]"
       v-show="show"
     ></div>
     <div class="middle" ref="target">
-      <img :src="subImages[currIndex]" alt="" />
-      <dic class="layer" v-show="show" :style="position"></dic>
+      <img :src="mainImages[currIndex]" alt="" />
+      <div class="layer" v-show="show" :style="position"></div>
     </div>
     <div class="small">
-      <li v-for="(img, i) in subImages" :key="i" class="{active:i===currIndex}">
+      <li v-for="(img, i) in mainImages" :key="i" class="{active:i===currIndex}">
         <img @mouseenter="currIndex = i" :src="img" alt="" />
       </li>
     </div>
@@ -23,11 +23,7 @@ import { useMouseInElement } from "@vueuse/core";
 export default {
   name: "GoodsImage",
   props: {
-    mainImage: {
-      type: String,
-      default: "",
-    },
-    subImages: {
+    mainImages: {
       type: Array,
       default: () => [],
     },

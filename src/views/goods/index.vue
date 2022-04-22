@@ -12,13 +12,12 @@
     <div class="goods-info">
       <div class="media">
         <GoodsImage
-          :mainImage="good.pro_main_image"
-          :subImages="good.pro_sub_images.images"
+          :mainImages="good.pro_main_images.images"
         />
       </div>
       <div class="spec">
         <GoodsName :good="good" />
-        <button class="good-name-btn">加入购物车</button>
+        <button @click="addCart()" class="good-name-btn">加入购物车</button>
         <button class="good-name-btn">立即购买</button>
       </div>
     </div>
@@ -36,12 +35,13 @@ import GoodsTabs from "./components/goods-tabs.vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { watch, ref, nextTick, computed } from "vue";
+import Message from "@/components/library/Message"
 export default {
   name: "GoodsPage",
   components: {
     GoodsImage,
     GoodsName,
-    GoodsTabs
+    GoodsTabs,
   },
   setup() {
     // 出现路由地址商品ID发生变化，但是不会重新初始化组件
@@ -66,7 +66,35 @@ export default {
       { immediate: true }
     );
 
-    return { good };
+    //加入购物车函数
+    const addCart = () => {
+      //是否登录在vuex中判断
+      let {pro_id,pro_name,pro_main_images,pro_price,pro_stock} = good.value;
+
+      console.log("GoodsPage-good",good.value);
+      store.dispatch("cart/insertCart", {
+        pro_id,
+        pro_name,
+        pro_main_images,
+        pro_price,
+        count: 1,
+        selected: true,
+        isEffective: true,
+        pro_stock
+      }).then(msg=>{
+        Message({
+          type: "success",
+          text: msg,
+        });
+      }).catch(err=>{
+         Message({
+          type: "error",
+          text: "加入购物车失败",
+        });
+      })
+    };
+
+    return { good, addCart };
   },
 };
 </script>

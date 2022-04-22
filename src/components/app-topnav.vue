@@ -2,9 +2,9 @@
   <nav class="app-topnav">
     <div class="container">
       <ul>
-        <li><a href="javascript:;">周杰伦</a></li>
-        <li><a href="javascript:;">退出登录</a></li>
-        <li><a href="javascript:;">请先登录</a></li>
+        <li><a href="javascript:;"><i class="iconfont icon-yonghu"></i>{{profile.u_nickname}}</a></li>
+        <li><a @click="logout()" href="javascript:;">退出登录</a></li>
+        <li><RouterLink to="/login">请先登录</RouterLink></li>
         <li><a href="javascript:;">免费注册</a></li>
         <li><a href="javascript:;">我的订单</a></li>
         <li><a href="javascript:;">会员中心</a></li>
@@ -21,8 +21,25 @@
 </template>
 
 <script>
+import {useStore} from 'vuex';
+import {useRouter} from 'vue-router';
+import {computed} from 'vue';
 export default {
   name: "AppTopNav",
+  setup(){
+      // 获取用户的登录信息才能控制切换导航菜单
+    const store = useStore()
+    // 使用vuex中的state需要设置计算属性，否则不是响应式
+    const profile = computed(() => {
+      return store.state.user.user
+    })
+    const router = useRouter()
+    const logout = () => {
+      store.commit('user/setUser',{})
+      router.push('/login')
+    }
+    return { profile, logout}
+  }
 };
 </script>
 

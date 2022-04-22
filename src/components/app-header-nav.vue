@@ -17,7 +17,7 @@ export default {
     const list = computed(()=>{
       return store.state.category.list
     })
-      console.log("AppHeaderNav-list",list);
+      // console.log("AppHeaderNav-list",list);
 
     return {list}
   }

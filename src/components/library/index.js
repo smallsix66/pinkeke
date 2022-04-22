@@ -10,6 +10,8 @@
 // 参数：1. 目录  2. 是否加载子目录  3. 加载的正则匹配
 const importFn = require.context('./',false,/\.vue$/)
 // console.dir(importFn.keys()) 文件名称数组
+import Message from './Message'
+import Confirm from './Confirm'
 
 export default {
   install (app) {
@@ -23,5 +25,9 @@ export default {
       const component = importFn(key).default
       app.component(component.name, component)
     });
+
+     // 如果你想挂载全局的属性，能够通过组件实例调用的属性   this.$message
+     app.config.globalProperties.$message = Message// 原型函数
+     app.config.globalProperties.$confirm = Confirm// 原型函数
   }
 }

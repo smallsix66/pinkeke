@@ -2,7 +2,7 @@
   <div class="pkk-item-col">
     <div class="item-img">
       <a href="#">
-        <img :src="item.pro_main_image" :alt="item.title" />
+        <img :src="item.pro_main_images.images[0]" :alt="item.title" />
       </a>
     </div>
     <div class="item-wrapper">
@@ -51,7 +51,7 @@ export default {
     },
   },
   setup(props) {
-
+    // console.log("PkkItemCol-item",props.item);
     return {  }
   },
 };
