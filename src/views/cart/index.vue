@@ -52,11 +52,14 @@
                 </td>
                 <td class="tc">
                   <p>&yen;{{ item.pro_price }}</p>
-                  <!-- <p>比加入时降价 <span class="red">&yen;20.00</span></p> -->
                 </td>
                 <td class="tc">
                   <!-- 数量选择器 -->
-                  <PkkNumbox @change="changeNum()" :modelValue="item.count" :max="item.store"/>
+                  <PkkNumbox
+                    @change="($event) => changeCount(item, $event)"
+                    :modelValue="item.count"
+                    :max="item.store"
+                  />
                   <!-- <XtxNumbox :modelValue="item.count"/> -->
                 </td>
                 <td class="tc">
@@ -121,7 +124,9 @@
             >
             <a @click="batchDeleteCart(false)" href="javascript:;">删除商品</a>
             <a href="javascript:;">移入收藏夹</a>
-            <a @click="batchDeleteCart(true)" href="javascript:;">清空失效商品</a>
+            <a @click="batchDeleteCart(true)" href="javascript:;"
+              >清空失效商品</a
+            >
           </div>
           <div class="total">
             共 {{ $store.getters["cart/validTotal"] }} 件商品，已选择
@@ -129,7 +134,8 @@
             <span class="red"
               >¥{{ $store.getters["cart/selectedAmount"] }}</span
             >
-            <button>下单结算</button>
+            <!-- <RouterLink to="/member/checkout" class="btn-buy">下单结算</RouterLink> -->
+            <button @click="goCheckout()" class="btn-buy">下单结算</button>
           </div>
         </div>
       </div>
@@ -139,13 +145,16 @@
 
 <script>
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import CartNone from "./components/cart-none.vue";
 import Confirm from "@/components/library/Confirm";
+import Message from "@/components/library/Message";
 export default {
   name: "CartPage",
   components: { CartNone },
   setup() {
     const store = useStore();
+    const router = useRouter();
     //单选
     const checkOne = (good, selected) => {
       // console.log("CartPage-checkOne-selected",selected);
@@ -171,21 +180,63 @@ export default {
     };
 
     //批量删除
-    const batchDeleteCart = (isClear)=>{
-      Confirm({text:`您确定从购物车删除${isClear ? '失效' : '选中'}的商品嘛？`}).then(()=>{
-        store.dispatch('cart/batchDeleteCart',isClear)
-      }).catch(e=>{})
-    }
+    const batchDeleteCart = (isClear) => {
+      Confirm({
+        text: `您确定从购物车删除${isClear ? "失效" : "选中"}的商品嘛？`,
+      })
+        .then(() => {
+          store.dispatch("cart/batchDeleteCart", isClear);
+        })
+        .catch((e) => {});
+    };
 
-    const changeNum = ()=>{
-      console.log("点击了数量选择器");
-    }
-    return { checkOne, checkAll, deleteCart, batchDeleteCart };
+    //修改数量
+    const changeCount = (good, count) => {
+      good.count = count;
+      // console.log("CartPage-点击了数量选择器",good);
+      store.dispatch("cart/updateCart", good);
+    };
+
+    //跳转到结算页面
+    const goCheckout = () => {
+      // 1. 判断是否选择有效商品
+      // 2. 判断是否已经登录，未登录 弹窗提示
+      // 3. 进行跳转 （需要做访问权限控制）
+      if (store.getters["cart/selectedTotal"] === 0)
+        return Message({ text: "至少选中一件商品才能结算" });
+      if (!store.state.user.user.u_id) {
+        Confirm({ text: "下单结算需登录，您是否先去登录？" })
+          .then(() => {
+            //点击确认
+            router.push("/login");
+          })
+          .catch((e) => {});
+      } else {
+        router.push("/member/checkout");
+      }
+    };
+    return {
+      checkOne,
+      checkAll,
+      deleteCart,
+      batchDeleteCart,
+      changeCount,
+      goCheckout,
+    };
   },
 };
 </script>
 
 <style lang="less" scoped>
+button {
+  background: none;
+}
+.btn-buy {
+  background: @pkkColor;
+  padding: 10px 20px;
+  // color: #fff;
+  border-radius: 5px;
+}
 .tc {
   text-align: center;
   .xtx-numbox {

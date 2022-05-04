@@ -14,7 +14,7 @@
     </div>
     <p class="hot-search">
       热门搜索:
-      <a href="#">咸鱼带货</a>
+      <a href="#">四六级</a>
       <a href="#">考研</a>
       <a href="#">考公</a>
     </p>

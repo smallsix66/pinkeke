@@ -71,20 +71,16 @@ export default {
       //是否登录在vuex中判断
       let {pro_id,pro_name,pro_main_images,pro_price,pro_stock} = good.value;
 
-      console.log("GoodsPage-good",good.value);
+      // console.log("GoodsPage-good",good.value);
       store.dispatch("cart/insertCart", {
         pro_id,
-        pro_name,
-        pro_main_images,
         pro_price,
         count: 1,
-        selected: true,
-        isEffective: true,
-        pro_stock
+        selected: 1
       }).then(msg=>{
         Message({
           type: "success",
-          text: msg,
+          text: '加入购物车成功',
         });
       }).catch(err=>{
          Message({

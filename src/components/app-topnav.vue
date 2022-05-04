@@ -3,12 +3,12 @@
     <div class="container">
       <ul>
         <li><a href="javascript:;"><i class="iconfont icon-yonghu"></i>{{profile.u_nickname}}</a></li>
-        <li><a @click="logout()" href="javascript:;">退出登录</a></li>
-        <li><RouterLink to="/login">请先登录</RouterLink></li>
+        <li v-if="profile"><a @click="logout()" href="javascript:;">退出登录</a></li>
+        <li v-else><RouterLink to="/login">请先登录</RouterLink></li>
         <li><a href="javascript:;">免费注册</a></li>
         <li><a href="javascript:;">我的订单</a></li>
-        <li><a href="javascript:;">会员中心</a></li>
-        <li><a href="javascript:;">帮助中心</a></li>
+        <li><RouterLink to="/member">个人中心</RouterLink></li>
+        <li><RouterLink to="/admin">后台管理</RouterLink></li>
         <li><a href="javascript:;">关于我们</a></li>
         <li>
           <a href="javascript:;"
@@ -35,7 +35,10 @@ export default {
     })
     const router = useRouter()
     const logout = () => {
+      //清空本地存储的用户信息
       store.commit('user/setUser',{})
+      //清空本地购物车
+      store.commit('cart/setCartList',[])
       router.push('/login')
     }
     return { profile, logout}

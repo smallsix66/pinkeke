@@ -8,7 +8,7 @@
 
 <script>
 import { ref, watch } from "vue";
-import {useVModel} from '@vueuse/core'
+import { useVModel } from "@vueuse/core";
 export default {
   name: "PkkCheckbox",
   props: {
@@ -29,21 +29,21 @@ export default {
     // };
 
     const checked = ref(false);
-	    const changeCheck = () => {
-	      checked.value = !checked.value;
-	      // 使用emit通知父组件数据的改变
-	      emit("update:modelValue", checked.value);
-        emit("change", checked.value);
-	    };
-	    // 使用侦听器，得到父组件传递数据，给checked数据
-	    watch(
-	      () => props.modelValue,
-	      () => {
-	        checked.value = props.modelValue;
-	      },
-	      { immediate: true }
-	    );
-	    return { checked, changeCheck };
+    const changeCheck = () => {
+      checked.value = !checked.value;
+      // 使用emit通知父组件数据的改变
+      emit("update:modelValue", checked.value);
+      emit("change", checked.value);
+    };
+    // 使用侦听器，得到父组件传递数据，给checked数据
+    watch(
+      () => props.modelValue,
+      () => {
+        checked.value = props.modelValue;
+      },
+      { immediate: true }
+    );
+    return { checked, changeCheck };
   },
 };
 </script>

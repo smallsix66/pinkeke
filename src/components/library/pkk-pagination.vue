@@ -113,6 +113,7 @@ export default {
     display: inline-block;
     padding: 5px 10px;
     border: 1px solid #e4e4e4;
+    background: #fff;
     border-radius: 4px;
     margin-right: 10px;
     &:hover {

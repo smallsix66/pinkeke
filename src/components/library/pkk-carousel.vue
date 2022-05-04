@@ -4,7 +4,7 @@
       <li class="carousel-item">
         <RouterLink to="/">
           <img
-            src="@/assets/images/banner/banner.png"
+            src="@/assets/images/banner/bg.png"
             alt=""
           />
         </RouterLink>

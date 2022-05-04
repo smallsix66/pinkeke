@@ -8,8 +8,8 @@
     <div class="item-wrapper">
       <span class="meta-category-dot">
         <a href="#" class="lable">{{item.tag }}</a>
-        <a href="#" class="lable">{{ item.cate_name }}</a>
-        <a href="#" class="lable">{{ item.br_name }}</a>
+        <a href="#" class="lable">{{ item.pro_detail.properties[0].val }}</a>
+        <a href="#" class="lable">{{ item.pro_detail.properties[1].val }}</a>
       </span>
       <header>
         <h3>{{ item.pro_name }}</h3>

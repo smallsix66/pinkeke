@@ -167,7 +167,7 @@ export default {
             .then((data) => {
               // console.log("LoginForm-data.list[0]",data.list[0]);
               // 成功
-              // 1. 存储信息
+              // 1. 存储用户信息
               const {
                 u_avatar,
                 u_email,
@@ -189,10 +189,13 @@ export default {
                 u_tel,
               });
               // console.log("LoginForm-store.state.user.user",store.state.user.user);
-              // 2. 提示
-              Message({ type: "success", text: "登录成功" });
-              // 3. 跳转
-              router.push(route.query.redirectUrl || "/");
+              //登陆成功后合并购物车操作
+              store.dispatch('cart/mergeLocalCart').then(()=>{
+                // 2. 提示
+                Message({ type: "success", text: "登录成功" });
+                // 3. 跳转
+                router.push(route.query.redirectUrl || "/");
+              })
             })
             .catch((e) => {
               console.log(e);

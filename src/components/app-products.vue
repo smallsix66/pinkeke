@@ -7,7 +7,7 @@
       </div>
       <div class="products-content">
         <ul class="content">
-          <li v-for="(val, index) in productList.slice(0, 12)" :key="index">
+          <li v-for="(val, index) in productList.slice(0, 8)" :key="index">
             <RouterLink :to="'/product/' + val.pro_id">
               <PkkItemCol :item="val" />
             </RouterLink>
@@ -46,7 +46,7 @@ export default {
     // 筛选条件准备
     const reqParams = reactive({
       page: 1,
-      pageSize: 12,
+      pageSize: 8,
       // hasPicture: null,
       // tag: null,
       // sortField: null,
